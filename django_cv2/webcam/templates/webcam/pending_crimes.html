@@ -1,0 +1,27 @@
+{% extends 'index.html'%}
+{%load static %}
+{% block head%}
+    <title>Detections</title>
+{% endblock%}
+{%block body%}
+    <div class="content d-flex justify-content-center">
+    <ul class="list-group">
+        There are a total of {{total_crimes}} crimes. {{total_unvalidated_crimes}} Below are the ones that are not validated.
+        {% for crime in crimes%}
+        <li class="list-group-item">
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <img src= "{% static crime.image %}" class="card-img-top" alt="{{crime.classification}} {{crime.date}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{crime.pk}}: {{ crime.classification }} ({{ crime.correct }})</h5>
+                    <p class="card-text">{{ crime.date}}</p>
+                    <a href="{% url 'webcam:update_crime_true' crime.pk %}" class="btn btn-danger">Emergency</a>
+                    <a href="{% url 'webcam:update_crime_false' crime.pk %}" class="btn btn-success">No Emergency</a>
+                </div>
+            </div>
+        </div>
+        </li>
+        {% endfor %}
+    </ul>
+    </div>
+{% endblock%}

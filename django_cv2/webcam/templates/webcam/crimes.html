@@ -1,0 +1,25 @@
+{% extends 'index.html'%}
+{%load static %}
+{% block head%}
+    <title>Detections</title>
+{% endblock%}
+{%block body%}
+    <div class="content d-flex justify-content-center">
+    <ul class="list-group">
+        There are a total of {{total_crimes}} crimes. {{total_validated_crimes}} of them are validated.
+        {% for crime in crimes%}
+            <li class="list-group-item">
+            <div class="d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <img src= "{% static crime.image %}" class="card-img-top" alt="{{crime.classification}} {{crime.date}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{crime.pk}}: {{ crime.classification }} ({{ crime.correct }})</h5>
+                        <p class="card-text">{{ crime.date}}</p>
+                    </div>
+                </div>
+            </div>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+{% endblock%}
